@@ -1,11 +1,12 @@
 package org.sanaa.ebanking.brif9.ebanking.models.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+@Data
 @Entity
 public class EbankUser {
     @Id
