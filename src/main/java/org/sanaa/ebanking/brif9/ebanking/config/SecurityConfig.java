@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .and()
                 .httpBasic()
                 .and()
-                .sessionManagement().disable(); // Stateless
+                .sessionManagement().disable();
         return http.build();
     }
 
