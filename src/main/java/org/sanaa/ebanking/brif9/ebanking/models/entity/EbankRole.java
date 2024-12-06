@@ -12,4 +12,5 @@ public class EbankRole {
 
     @Column(nullable = false, unique = true)
     private String roleName;
+
 }
