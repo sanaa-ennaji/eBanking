@@ -7,11 +7,10 @@ import org.sanaa.ebanking.brif9.ebanking.models.dto.Request.UserRequestDTO;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Response.UserResponseDTO;
 import org.sanaa.ebanking.brif9.ebanking.models.entity.EbankUser;
 
-import java.util.List;
-@Mapper(componentModel = "spring" )
-public interface UserMapper {
 
+@Mapper(componentModel = "spring")
+public interface UserMapper {
    UserResponseDTO toResponseDTO(EbankUser entity);
-    EbankUser toEntity (UserRequestDTO requestDTO);
+   EbankUser toEntity(UserRequestDTO requestDTO);
 }
 
