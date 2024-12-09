@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserRequestDTO {
     private String userName;
+    private String password;
     private long roleId;
 }
