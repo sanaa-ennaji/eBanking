@@ -2,16 +2,32 @@ package org.sanaa.ebanking.brif9.ebanking.models.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+
+import org.mapstruct.Named;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Request.UserRequestDTO;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Response.UserResponseDTO;
+import org.sanaa.ebanking.brif9.ebanking.models.entity.EbankRole;
 import org.sanaa.ebanking.brif9.ebanking.models.entity.EbankUser;
 
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-   @Mapping(source = "roleId", target = "role.id")
+
+
+   @Mapping(source = "role.id", target = "roleId")
    UserResponseDTO toResponseDTO(EbankUser entity);
-   @Mapping(source = "role.name", target = "role")
+
+   @Mapping(source = "roleId", target = "role", qualifiedByName = "mapRole")
    EbankUser toEntity(UserRequestDTO requestDTO);
+
+   @Named("mapRole")
+   default EbankRole mapRole(Long roleId) {
+      if (roleId == null) {
+         return null;
+      }
+      EbankRole role = new EbankRole();
+      role.setId(roleId);
+      return role;
+   }
 }
 
