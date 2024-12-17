@@ -30,7 +30,7 @@ public class SecurityConfig {
                 )
                  .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/users/notices", "/api/contact", "/api/users/register").permitAll()
+                        .requestMatchers("/api/users/notices", "/api/contact", "/api/users/register", "/api/v1/roles").permitAll()
                         .requestMatchers("/api/users/**").hasRole("ADMIN")
                         .requestMatchers("/api/myLoans", "/api/myCards", "/api/myAccount", "/api/myBalance")
                         .authenticated()
