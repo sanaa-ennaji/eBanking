@@ -15,7 +15,7 @@ services:
     image: dpage/pgadmin4:latest
     container_name: pgadmin2
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_EMAIL: sanaaennaji93@gmail.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"

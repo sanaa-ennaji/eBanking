@@ -27,4 +27,5 @@ public class UserController {
     public ResponseEntity<String> getNotices() {
         return ResponseEntity.ok("Notices");
     }
+
 }

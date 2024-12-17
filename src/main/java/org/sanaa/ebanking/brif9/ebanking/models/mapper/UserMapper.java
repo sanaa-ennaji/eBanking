@@ -15,9 +15,11 @@ public interface UserMapper {
 
 
    @Mapping(source = "role.id", target = "roleId")
+   @Mapping(source = "username", target = "userName")
    UserResponseDTO toResponseDTO(EbankUser entity);
 
    @Mapping(source = "roleId", target = "role", qualifiedByName = "mapRole")
+   @Mapping(source = "userName", target = "username")
    EbankUser toEntity(UserRequestDTO requestDTO);
 
    @Named("mapRole")

@@ -21,10 +21,22 @@ public class GlobalExceptionHandler {
         ErrorDTO errorDTO = new ErrorDTO(HttpStatus.FORBIDDEN.value(), "Access denied: " + ex.getMessage());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDTO);
     }
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> handleGeneralException(Exception ex) {
-        ErrorDTO errorDTO = new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred.");
+        ex.printStackTrace();
+
+        ErrorDTO errorDTO = new ErrorDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                ex.getMessage()
+        );
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDTO);
     }
+
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErrorDTO> handleGeneralException(Exception ex) {
+//        ErrorDTO errorDTO = new ErrorDTO(HttpStatus.INTERNAL_SERVER_ERROR.value(), "An unexpected error occurred.");
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDTO);
+//    }
+
 }

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserEmbeddedDTO {
     private Long id ;
-    private String username;
+    private String userName;
 }
