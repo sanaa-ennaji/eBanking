@@ -3,8 +3,10 @@ package org.sanaa.ebanking.brif9.ebanking.service;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Request.PasswordChangeDTO;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Request.UserRequestDTO;
 import org.sanaa.ebanking.brif9.ebanking.models.dto.Response.UserResponseDTO;
+import org.sanaa.ebanking.brif9.ebanking.models.entity.EbankRole;
 import org.sanaa.ebanking.brif9.ebanking.models.entity.EbankUser;
 import org.sanaa.ebanking.brif9.ebanking.models.mapper.UserMapper;
+import org.sanaa.ebanking.brif9.ebanking.repository.RoleRepository;
 import org.sanaa.ebanking.brif9.ebanking.repository.UserRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,11 +18,13 @@ import java.util.List;
 public class UserService implements UserServiceI {
 
 private final UserRepository userRepository;
+private final RoleRepository roleRepository;
 private final UserMapper userMapper;
 private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
     }
@@ -53,5 +57,22 @@ private final PasswordEncoder passwordEncoder;
     public List<UserResponseDTO> getAllUsers() {
         List<EbankUser> users = userRepository.findAll();
         return users.stream().map(userMapper::toResponseDTO).toList();
+    }
+
+    public void deleteUserByUsername(String username) {
+        EbankUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        userRepository.delete(user);
+    }
+
+    public void updateUserRole(String username, String newRole) {
+        EbankUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        EbankRole role = roleRepository.findByName(newRole)
+                .orElseThrow(() -> new IllegalArgumentException("Role not found"));
+
+        user.setRole(role);
+        userRepository.save(user);
     }
 }

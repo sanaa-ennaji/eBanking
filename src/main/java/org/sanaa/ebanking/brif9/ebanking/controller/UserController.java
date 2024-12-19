@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
     private final AuthenticationManager authenticationManager;
@@ -58,16 +58,30 @@ public class UserController {
         return ResponseEntity.ok("Password updated");
     }
 
-    @GetMapping("/me")
+    @GetMapping("/{username}")
     public ResponseEntity<UserResponseDTO> getCurrentUser(Authentication authentication) {
         UserResponseDTO user = userService.getCurrentUser(authentication.getName());
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
         List<UserResponseDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<String> deleteUser(@PathVariable String username) {
+        userService.deleteUserByUsername(username);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @PutMapping("/{username}/updateRole")
+    public ResponseEntity<String> updateRole(
+            @PathVariable String username,
+            @RequestParam String newRole) {
+        userService.updateUserRole(username, newRole);
+        return ResponseEntity.ok("User role updated successfully");
     }
 
 
