@@ -4,6 +4,7 @@ package org.sanaa.ebanking.brif9.ebanking.config;
 import org.sanaa.ebanking.brif9.ebanking.exception.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -30,9 +31,10 @@ public class SecurityConfig {
                 )
                  .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/v1/notices", "/api/v1/contact", "/api/v1/register", "/api/v1/roles", "/api/v1/login").permitAll()
-                        .requestMatchers("/api/users/**" , "/api/v1/change-password").hasRole("ADMIN")
-                        .requestMatchers("/api/v1/myLoans", "/api/v1/myCards", "/api/v1/myAccount", "/api/v1/myBalance")
+                        .requestMatchers("/api/v1/notices", "/api/v1/contact", "/api/v1/login").permitAll()
+                        .requestMatchers("/api/users", "/api/v1/{username}", "/api/v1/{username}/delete" , "/api/v1/{username}/updateRole","/api/v1/roles" ,  "/api/v1/register", "/api/v1/change-password").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/{username}").hasRole("USER")
+                        .requestMatchers( "/api/users/{username}","/api/v1/myLoans", "/api/v1/myCards", "/api/v1/myAccount", "/api/v1/myBalance")
                         .authenticated()
                         .anyRequest().authenticated()
                 )

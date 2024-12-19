@@ -32,6 +32,7 @@ private final PasswordEncoder passwordEncoder;
         EbankUser savedUser = userRepository.save(user);
         return userMapper.toResponseDTO(savedUser);
     }
+    @Override
     public void changePassword(String username, PasswordChangeDTO passwordChangeDTO) {
         EbankUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -42,13 +43,13 @@ private final PasswordEncoder passwordEncoder;
         userRepository.save(user);
     }
 
-
+   @Override
     public UserResponseDTO getCurrentUser(String username) {
         EbankUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return userMapper.toResponseDTO(user);
     }
-
+    @Override
     public List<UserResponseDTO> getAllUsers() {
         List<EbankUser> users = userRepository.findAll();
         return users.stream().map(userMapper::toResponseDTO).toList();
