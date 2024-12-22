@@ -11,4 +11,6 @@ public interface UserServiceI {
     void changePassword(String username, PasswordChangeDTO passwordChangeDTO);
     UserResponseDTO getCurrentUser(String username);
     List<UserResponseDTO> getAllUsers();
+    void deleteUserByUsername(String username);
+    void updateUserRole(String username, String newRole);
 }

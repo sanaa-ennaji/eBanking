@@ -13,5 +13,6 @@ import java.util.List;
 public class RoleResponseDTO {
     private Long id;
     private String roleName;
-    private List<UserEmbeddedDTO> users;
+
+
 }

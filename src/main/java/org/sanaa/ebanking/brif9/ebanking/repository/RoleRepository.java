@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface RoleRepository extends JpaRepository<EbankRole , Long>{
-    Optional<EbankRole> findByName(String name);
+    Optional<EbankRole> findByRoleName(String roleName);
 }

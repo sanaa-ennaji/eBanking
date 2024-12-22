@@ -58,7 +58,7 @@ private final PasswordEncoder passwordEncoder;
         List<EbankUser> users = userRepository.findAll();
         return users.stream().map(userMapper::toResponseDTO).toList();
     }
-
+    @Override
     public void deleteUserByUsername(String username) {
         EbankUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -69,10 +69,13 @@ private final PasswordEncoder passwordEncoder;
         EbankUser user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        EbankRole role = roleRepository.findByName(newRole)
+        EbankRole role = roleRepository.findByRoleName(newRole)
                 .orElseThrow(() -> new IllegalArgumentException("Role not found"));
 
         user.setRole(role);
         userRepository.save(user);
     }
+
+
+
 }
